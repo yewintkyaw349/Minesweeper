@@ -25,8 +25,6 @@ def checker(row, col):
     # True = the coordinate is a bomb
     # False = the coordinate is not a bomb
 
-#[[2, 3], [4, 5], [1, 1], [5, 2], [2, 1], [5, 5], [4, 5]]
-
 def bomb_counter(row, col):
     #surrending bomb number of each innocent square
     #count the bomb_num
@@ -88,27 +86,7 @@ def clicked(r, c):
     number_of_bombs=law_of_bomb_num
     #bomb generator
     if clicked_time == 1:
-        for i in range(number_of_bombs):
-            condition = False
-                #repeat the randoming until the bomb_counter(r and c) is zero
-            while not condition:
-                bomb_row = random.randint(1,col_and_row)
-                bomb_col = random.randint(1,col_and_row)
-
-                #checking duplication
-                if checker(bomb_row, bomb_col):
-                    continue
-                else: 
-                    bomb_coordinate.append([bomb_row, bomb_col])
-                    condition=True
-    print("first time all coordinate of the bombs:",bomb_coordinate)
-    #bomb_coordinate ပြီးပြီ၊ bomb coordinate မှာ first time ခုပဲနှိပ်လိုက်တဲ့ {clicked_time ==1} က count(row, col) နဲ့ စစ်ရင် 0 မထွက်ရင် ထပ်ပြီး ဖြစ်တဲ့ ထိ generate လုပ်ေပးပါ။
-    #making the first click is 0 - mar 7, 1:41 attempt: output is either 0 or bomb
-    if clicked_time==1:
-        while not bomb_counter(clicked_row, clicked_col) == 0:
-            #what if i just change the bomb coordinate if it's the same
-            print("#################THE FIRST NUMBER IS not ZEROOO##############")
-            bomb_coordinate = []
+        def bomb_generator():
             for i in range(number_of_bombs):
                 condition = False
                     #repeat the randoming until the bomb_counter(r and c) is zero
@@ -122,6 +100,11 @@ def clicked(r, c):
                     else: 
                         bomb_coordinate.append([bomb_row, bomb_col])
                         condition=True
+        bomb_generator()
+    if clicked_time==1:
+        while not bomb_counter(clicked_row, clicked_col) == 0:
+            bomb_coordinate = []
+            bomb_generator()
 
 
     def checker_infunc(row, col):
@@ -140,9 +123,6 @@ def clicked(r, c):
         bg="#B8E5B8",
         font=("Arial",18, "bold")
         )
-
-# if checker(clicked_row, clicked_col):
-#     print('this box is a bomb')
 
 #box button generator
 buttons = {}
