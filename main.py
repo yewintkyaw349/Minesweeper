@@ -1,5 +1,6 @@
 import tkinter
 import random
+import time
 
 root =tkinter.Tk()
 root.title("Minesweeper Game")
@@ -14,6 +15,15 @@ col_and_row = 9#can't be blow 9
 law_of_bomb_num=round((30/7*col_and_row)-28.51714)
 name_title=tkinter.Label(root, text=f"Number of MINE: {law_of_bomb_num} | Winning Probalility: {round(100-(law_of_bomb_num/int(col_and_row*col_and_row)*100))}%",font=("Arial", 0), anchor="w")
 name_title.grid(row=0, column=0, columnspan=col_and_row)
+
+
+#restart the game
+def restart_game():
+
+    pass
+
+
+
 #bomb: bg color, reveal, lose messagebox - add background color for bomb and lose
 #0: no text for 0 - reveal
 def checker(row, col):
@@ -118,11 +128,20 @@ def clicked(r, c):
     print("coordinated of the clicked box:",(r, c))
     print("all coordinate of the bombs:",bomb_coordinate)
     print('----------------------------------------------------------\n')
-    buttons[(r, c)].config(
-        text=(box_text(r, c)),
-        bg="#B8E5B8",
-        font=("Arial",18, "bold")
-        )
+    if checker(r, c):
+        buttons[(r, c)].config(
+            text=(box_text(r, c)),
+            bg="#FD3131",
+            font=("Arial",18, "bold")
+            )
+        root.mainloop()
+        
+    else:
+        buttons[(r, c)].config(
+            text=(box_text(r, c)),
+            bg="#B8E5B8",
+            font=("Arial",18, "bold")
+            )
 
 #box button generator
 buttons = {}
