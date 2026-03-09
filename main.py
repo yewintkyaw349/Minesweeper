@@ -67,14 +67,11 @@ def bomb_counter(row, col):
 
 #box data include key btn_11: bomb, btn_12: 2
 
-begin = True
 def box_text(row, col):
-    if begin:
-        if checker(row, col): #it takes the last bom_row and bomb_col
-                return "B"
-        else:
-                return bomb_counter(row, col)
-    return ""
+    if checker(row, col): #it takes the last bom_row and bomb_col
+            return "B"
+    else:
+            return bomb_counter(row, col)
 clicked_time=0
 bomb_coordinate = []
 def clicked(r, c):
