@@ -1,6 +1,7 @@
 import tkinter
 import random
 import time
+from tkinter import messagebox
 
 root =tkinter.Tk()
 root.title("Minesweeper Game")
@@ -15,13 +16,6 @@ col_and_row = 9#can't be blow 9
 law_of_bomb_num=round((30/7*col_and_row)-28.51714)
 name_title=tkinter.Label(root, text=f"Number of MINE: {law_of_bomb_num} | Winning Probalility: {round(100-(law_of_bomb_num/int(col_and_row*col_and_row)*100))}%",font=("Arial", 0), anchor="w")
 name_title.grid(row=0, column=0, columnspan=col_and_row)
-
-
-#restart the game
-def restart_game():
-
-    pass
-
 
 
 #bomb: bg color, reveal, lose messagebox - add background color for bomb and lose
@@ -73,7 +67,6 @@ def bomb_counter(row, col):
 
 #box data include key btn_11: bomb, btn_12: 2
 
-global begin
 begin = True
 def box_text(row, col):
     if begin:
@@ -87,7 +80,6 @@ bomb_coordinate = []
 def clicked(r, c):
     global clicked_time
     clicked_time+=1
-    print("Clicked time:",clicked_time)
     global clicked_col
     global clicked_row
     clicked_row = r
@@ -123,19 +115,13 @@ def clicked(r, c):
                 if row==i[0] and col==i[1]: # if 1 is exit, it only check one time
                     return True
             return False
-    print("Is it a bomb? check_infunc:",checker_infunc(clicked_row, clicked_col))
-    print("Is it a bomb? checker:",checker(clicked_row, clicked_col))
-    print("coordinated of the clicked box:",(r, c))
-    print("all coordinate of the bombs:",bomb_coordinate)
-    print('----------------------------------------------------------\n')
     if checker(r, c):
         buttons[(r, c)].config(
             text=(box_text(r, c)),
             bg="#FD3131",
             font=("Arial",18, "bold")
             )
-        root.mainloop()
-        
+        messagebox.showinfo("Game Status", "you lost")
     else:
         buttons[(r, c)].config(
             text=(box_text(r, c)),
