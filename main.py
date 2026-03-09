@@ -12,7 +12,7 @@ root.geometry(geometry_infuc)
 
 col_and_row = 9#can't be blow 9
 law_of_bomb_num=round((30/7*col_and_row)-28.51714)
-name_title=tkinter.Label(root, text=f"Number of MINE: {law_of_bomb_num} | Winning Probalility: {round(100-(law_of_bomb_num/int(col_and_row^2)))}%",font=("Arial", 0), anchor="w")
+name_title=tkinter.Label(root, text=f"Number of MINE: {law_of_bomb_num} | Winning Probalility: {round(100-(law_of_bomb_num/int(col_and_row*col_and_row)*100))}%",font=("Arial", 0), anchor="w")
 name_title.grid(row=0, column=0, columnspan=col_and_row)
 #bomb: bg color, reveal, lose messagebox - add background color for bomb and lose
 #0: no text for 0 - reveal
