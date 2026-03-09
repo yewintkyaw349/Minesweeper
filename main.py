@@ -54,29 +54,18 @@ def bomb_counter(row, col):
     
     return inno_bomb_count
 
-
-#restart button, revealed button(notice messagebox**)
-
-
-#7 bombs
-
-#when the game start, all the boxes are blank.
-#when one of the box is click, the text are revealed
-#the clicked one has to be 0
-  #untiled the click one checker(row, col), while if ending = False continue else, ending = True 
-
-#box data include key btn_11: bomb, btn_12: 2
-
 def box_text(row, col):
     if checker(row, col): #it takes the last bom_row and bomb_col
             return "B"
     else:
             return bomb_counter(row, col)
+    
 clicked_time=0
 bomb_coordinate = []
 def clicked(r, c):
     global clicked_time
-    clicked_time+=1
+    local_clicked_time = clicked_time
+    local_clicked_time+=1
     global clicked_col
     global clicked_row
     clicked_row = r
@@ -84,7 +73,7 @@ def clicked(r, c):
     global bomb_coordinate
     number_of_bombs=law_of_bomb_num
     #bomb generator
-    if clicked_time == 1:
+    if local_clicked_time == 1:
         def bomb_generator():
             for i in range(number_of_bombs):
                 condition = False
@@ -100,11 +89,11 @@ def clicked(r, c):
                         bomb_coordinate.append([bomb_row, bomb_col])
                         condition=True
         bomb_generator()
-    if clicked_time==1:
+    if local_clicked_time==1:
         while not bomb_counter(clicked_row, clicked_col) == 0:
             bomb_coordinate = []
             bomb_generator()
-
+    clicked_time=local_clicked_time
 
     def checker_infunc(row, col):
             #row --> count, count a tine loop check
@@ -118,32 +107,40 @@ def clicked(r, c):
             bg="#FD3131",
             font=("Arial",18, "bold")
             )
-        messagebox.showinfo("Game Status", "you lost")
+        clicked_time=0
+        messagebox.showinfo("Game Status", "Game Over!")
+        game_start()
     else:
         buttons[(r, c)].config(
             text=(box_text(r, c)),
             bg="#B8E5B8",
             font=("Arial",18, "bold")
             )
-
+        if local_clicked_time==( col_and_row*col_and_row - law_of_bomb_num ):
+            messagebox.showinfo("Game Status", "You Win!")
+            # game_start()
+    print(col_and_row*col_and_row - law_of_bomb_num)
+    pass
 #box button generator
 buttons = {}
 btn_dimension=int((900/col_and_row)-4)
 pixel_virtual = tkinter.PhotoImage(width=1, height=1)
-for row in range(1, col_and_row+1):
-    for col in range(1, col_and_row+1):
-        btn = tkinter.Button(
-            root, 
-            image=pixel_virtual,
-            width=btn_dimension, 
-            height=btn_dimension, 
-            compound="c",
-            borderwidth=1,
-            highlightthickness=0,
-            padx=0,
-            pady=0,
-            command=lambda r=row, c=col: clicked(r, c)
-        )
-        btn.grid(row=row, column=col)
-        buttons[(row, col)] = btn
+def game_start():
+    for row in range(1, col_and_row+1):
+        for col in range(1, col_and_row+1):
+            btn = tkinter.Button(
+                root, 
+                image=pixel_virtual,
+                width=btn_dimension, 
+                height=btn_dimension, 
+                compound="c",
+                borderwidth=1,
+                highlightthickness=0,
+                padx=0,
+                pady=0,
+                command=lambda r=row, c=col: clicked(r, c)
+            )
+            btn.grid(row=row, column=col)
+            buttons[(row, col)] = btn
+game_start()
 root.mainloop()
