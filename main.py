@@ -118,7 +118,7 @@ def clicked(r, c):
             )
         if local_clicked_time==( col_and_row*col_and_row - law_of_bomb_num ):
             messagebox.showinfo("Game Status", "You Win!")
-            # game_start()
+            game_start()
     print(col_and_row*col_and_row - law_of_bomb_num)
     pass
 #box button generator
