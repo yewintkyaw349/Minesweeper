@@ -48,15 +48,12 @@ def surrending_zero_checker(row, col):
         reveal_coordinate.append([row-1, col-1])
     return reveal_coordinate
 
-revealed = []
+revealed = []#use set!!!!!!!!!!!! for winning
 def surrending_zero_reveal(row, col):
     #if text(r,c) == 0: if text
     #အောက်ကို ဆင်း အပေါ်ပြန်တတ် nk လည် နေတာ 
     global revealed
-    print([row, col])
-    print(type([row, col]))
     if bomb_counter(row, col) == 0:
-        print(revealed)
         if bomb_counter(row+1, col) >= 0 and [row+1, col] in valid_button and not [row+1, col] in revealed: # wall ပိတ်ရင် လည်းရေ ေအာင် 
             buttons[(row+1, col)].config(
                 text=(box_text(row+1, col)),
@@ -151,13 +148,17 @@ def bomb_counter(row, col):
 def box_text(row, col):
     if checker(row, col): #it takes the last bom_row and bomb_col
             return "B"
-    else:
-            return bomb_counter(row, col)
+    elif not checker(row, col):
+        if bomb_counter(row, col) == 0:
+            return ""
+        return bomb_counter(row, col)
     
 clicked_time=0
+real_click_time = 0
 bomb_coordinate = []
 def clicked(r, c): #button click
     global clicked_time
+    global real_click_time
     local_clicked_time = clicked_time
     local_clicked_time+=1
     global clicked_col
@@ -203,6 +204,7 @@ def clicked(r, c): #button click
         messagebox.showinfo("Game Status", "Game Over!")
         game_start()
     else:
+        real_click_time+=1
         buttons[(r, c)].config(
             text=(box_text(r, c)),
             bg="#B8E5B8",
@@ -215,10 +217,11 @@ def clicked(r, c): #button click
         revealed.append([r,c])
 
         #if zero: reveal the surrounding//
+        print (revealed.count)
         if local_clicked_time==( col_and_row*col_and_row - law_of_bomb_num ): #needa fix
             messagebox.showinfo("Game Status", "You Win!")
             game_start()
-
+    print(real_click_time)
 #box button generator
 buttons = {}
 btn_dimension=int((900/col_and_row)-4)
@@ -246,7 +249,6 @@ valid_button = []
 for row in range(col_and_row):
     for col in range(col_and_row):
         valid_button.append([row+1, col+1])
-print(valid_button)
 
 game_start()
 root.mainloop()
