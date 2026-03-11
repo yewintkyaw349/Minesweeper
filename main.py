@@ -219,6 +219,7 @@ def clicked(r, c): #button click
 
         #if zero: reveal the surrounding//
         if len(set(revealed))==( col_and_row*col_and_row - law_of_bomb_num ): #needa fix
+            clicked_time=0
             messagebox.showinfo("Game Status", "You Win!")
             game_start()
 
