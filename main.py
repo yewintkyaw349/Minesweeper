@@ -11,7 +11,6 @@ geo_height = geometry+30
 geometry_infuc = f"{geometry}x{geo_height-7}"
 root.geometry(geometry_infuc)
 
-
 col_and_row = 9#can't be blow 9
 law_of_bomb_num=round((30/7*col_and_row)-28.51714)
 name_title=tkinter.Label(root, text=f"Number of MINE: {law_of_bomb_num} | Winning Probalility: {round(100-(law_of_bomb_num/int(col_and_row*col_and_row)*100))}%",font=("Arial", 0), anchor="w")
@@ -49,120 +48,81 @@ def surrending_zero_checker(row, col):
         reveal_coordinate.append([row-1, col-1])
     return reveal_coordinate
 
+revealed = []
 def surrending_zero_reveal(row, col):
     #if text(r,c) == 0: if text
     #အောက်ကို ဆင်း အပေါ်ပြန်တတ် nk လည် နေတာ 
+    global revealed
     print([row, col])
     print(type([row, col]))
     if bomb_counter(row, col) == 0:
-        if bomb_counter(row+1, col) >= 0 and [row+1, col] in valid_button: # wall ပိတ်ရင် လည်းရေ ေအာင် 
+        print(revealed)
+        if bomb_counter(row+1, col) >= 0 and [row+1, col] in valid_button and not [row+1, col] in revealed: # wall ပိတ်ရင် လည်းရေ ေအာင် 
             buttons[(row+1, col)].config(
                 text=(box_text(row+1, col)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row+1, col])
             surrending_zero_reveal(row+1, col)
-        if bomb_counter(row-1, col) >= 0 and [row-1, col] in valid_button:
+        if bomb_counter(row-1, col) >= 0 and [row-1, col] in valid_button and not [row-1, col] in revealed:
             buttons[(row-1, col)].config(
                 text=(box_text(row-1, col)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row-1, col])
             surrending_zero_reveal(row-1, col)
-        if bomb_counter(row, col+1) >= 0 and [row, col+1] in valid_button:
+        if bomb_counter(row, col+1) >= 0 and [row, col+1] in valid_button and not [row, col+1] in revealed:
             buttons[(row, col+1)].config(
                 text=(box_text(row, col+1)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row, col+1])
             surrending_zero_reveal(row, col+1)
-        if bomb_counter(row, col-1) >= 0 and [row, col-1] in valid_button:
+        if bomb_counter(row, col-1) >= 0 and [row, col-1] in valid_button and not [row, col-1] in revealed:
             buttons[(row, col-1)].config(
                 text=(box_text(row, col-1)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row, col-1])
             surrending_zero_reveal(row, col-1)
-        if bomb_counter(row+1, col+1) >= 0 and [row+1, col+1] in valid_button:
+        if bomb_counter(row+1, col+1) >= 0 and [row+1, col+1] in valid_button and not [row+1, col+1] in revealed:
             buttons[(row+1, col+1)].config(
                 text=(box_text(row+1, col+1)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row+1, col+1])
             surrending_zero_reveal(row+1, col+1)
-        if bomb_counter(row+1, col-1) >= 0 and [row+1, col-1] in valid_button:
+        if bomb_counter(row+1, col-1) >= 0 and [row+1, col-1] in valid_button and not [row+1, col-1] in revealed:
             buttons[(row+1, col-1)].config(
                 text=(box_text(row+1, col-1)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row+1, col-1])
             surrending_zero_reveal(row+1, col-1)
-        if bomb_counter(row-1, col+1) >= 0 and [row-1, col+1] in valid_button:
+        if bomb_counter(row-1, col+1) >= 0 and [row-1, col+1] in valid_button and not [row-1, col+1] in revealed:
             buttons[(row-1, col+1)].config(
                 text=(box_text(row-1, col+1)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row-1, col+1])
             surrending_zero_reveal(row-1, col+1)
-        if bomb_counter(row-1, col-1) >= 0 and [row-1, col-1] in valid_button:
+        if bomb_counter(row-1, col-1) >= 0 and [row-1, col-1] in valid_button and not [row-1, col-1] in revealed:
             buttons[(row-1, col-1)].config(
                 text=(box_text(row-1, col-1)),
                 bg="#B8E5B8",
                 font=("Arial",18, "bold")
                 )
+            revealed.append([row-1, col-1])
             surrending_zero_reveal(row-1, col-1)
     return
 
-# def surrending_zero_reveal(row, col):
-#     #if text(r,c) == 0: if text
-#     if not checker(row+1, col):
-#         buttons[(row+1, col)].config(
-#             text=(box_text(row+1, col)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
-#     if not checker(row-1, col):
-#         buttons[(row-1, col)].config(
-#             text=(box_text(row-1, col)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
-#     if not checker(row, col+1):
-#         buttons[(row, col+1)].config(
-#             text=(box_text(row, col+1)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
-#     if not checker(row, col-1):
-#         buttons[(row, col-1)].config(
-#             text=(box_text(row, col-1)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
-#     if not checker(row+1, col+1):
-#         buttons[(row+1, col+1)].config(
-#             text=(box_text(row+1, col+1)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
-#     if not checker(row+1, col-1):
-#         buttons[(row+1, col-1)].config(
-#             text=(box_text(row+1, col-1)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
-#     if not checker(row-1, col+1):
-#         buttons[(row-1, col+1)].config(
-#             text=(box_text(row-1, col+1)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
-#     if not checker(row-1, col-1):
-#         buttons[(row-1, col-1)].config(
-#             text=(box_text(row-1, col-1)),
-#             bg="#B8E5B8",
-#             font=("Arial",18, "bold")
-#             )
 def bomb_counter(row, col):
     #surrending bomb number of each innocent square
     #count the bomb_num
@@ -196,7 +156,7 @@ def box_text(row, col):
     
 clicked_time=0
 bomb_coordinate = []
-def clicked(r, c):
+def clicked(r, c): #button click
     global clicked_time
     local_clicked_time = clicked_time
     local_clicked_time+=1
@@ -239,6 +199,7 @@ def clicked(r, c):
             font=("Arial",18, "bold")
             )
         clicked_time=0
+        
         messagebox.showinfo("Game Status", "Game Over!")
         game_start()
     else:
@@ -251,6 +212,7 @@ def clicked(r, c):
         #if zero: reveal the surrounding
         if bomb_counter(r, c)==0:
             surrending_zero_reveal(r, c)
+        revealed.append([r,c])
 
         #if zero: reveal the surrounding//
         if local_clicked_time==( col_and_row*col_and_row - law_of_bomb_num ): #needa fix
@@ -262,6 +224,8 @@ buttons = {}
 btn_dimension=int((900/col_and_row)-4)
 pixel_virtual = tkinter.PhotoImage(width=1, height=1)
 def game_start():
+    global revealed
+    revealed = []
     for row in range(1, col_and_row+1):
         for col in range(1, col_and_row+1):
             btn = tkinter.Button(
