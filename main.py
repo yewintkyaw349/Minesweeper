@@ -147,7 +147,7 @@ def bomb_counter(row, col):
 
 def box_text(row, col):
     if checker(row, col): #it takes the last bom_row and bomb_col
-            return "B"
+            return ""
     elif not checker(row, col):
         if bomb_counter(row, col) == 0:
             return ""
