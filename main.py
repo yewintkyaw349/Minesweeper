@@ -1,6 +1,7 @@
 import tkinter
 import random
 import time
+from tkinter import *
 from tkinter import messagebox
 
 root =tkinter.Tk()
@@ -11,11 +12,49 @@ geo_height = geometry+30
 geometry_infuc = f"{geometry}x{geo_height-7}"
 root.geometry(geometry_infuc)
 
+my_menu = Menu(root)
+root.config(menu=my_menu)
+
+def restart():
+    global clicked_time
+    clicked_time=0
+    game_start()
+def easy_level():
+    global col_and_row
+    col_and_row = 9
+    global clicked_time
+    clicked_time=0
+    game_start()
+def medium_level():
+    global col_and_row
+    col_and_row = 16
+    global clicked_time
+    clicked_time=0
+    game_start()
+def hard_level():
+    global col_and_row
+    col_and_row = 24
+    global clicked_time
+    clicked_time=0
+    game_start()
+
+option_menu = Menu(my_menu)
+my_menu.add_cascade(label = "Options", menu=option_menu)
+option_menu.add_command(label="New Game", command=restart)
+
+#ERRORRRRRR!!!!!!!!!1
+# difficulty_menu = Menu(my_menu)
+# my_menu.add_cascade(label = "Difficulty", menu=difficulty_menu)
+# difficulty_menu.add_command(label="Easy", command=easy_level)
+# difficulty_menu.add_command(label="Medium", command=medium_level)
+# difficulty_menu.add_command(label="Hard", command=hard_level)
+
+
+
 col_and_row = 9#can't be blow 9
 law_of_bomb_num=round((30/7*col_and_row)-28.51714)
 name_title=tkinter.Label(root, text=f"Number of MINE: {law_of_bomb_num} | Winning Probalility: {round(100-(law_of_bomb_num/int(col_and_row*col_and_row)*100))}%",font=("Arial", 0), anchor="w")
 name_title.grid(row=0, column=0, columnspan=col_and_row)
-
 
 #bomb: bg color, reveal, lose messagebox - add background color for bomb and lose
 #0: no text for 0 - reveal
@@ -167,6 +206,7 @@ def clicked(r, c): #button click
     clicked_row = r
     clicked_col = c
     global bomb_coordinate
+    print(col_and_row)
     number_of_bombs=law_of_bomb_num
 
     #bomb generator
@@ -246,6 +286,7 @@ def game_start():
             )
             btn.grid(row=row, column=col)
             buttons[(row, col)] = btn
+
 valid_button = []
 for row in range(col_and_row):
     for col in range(col_and_row):
