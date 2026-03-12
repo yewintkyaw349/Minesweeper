@@ -206,7 +206,6 @@ def clicked(r, c): #button click
     clicked_row = r
     clicked_col = c
     global bomb_coordinate
-    print(col_and_row)
     number_of_bombs=law_of_bomb_num
 
     #bomb generator
