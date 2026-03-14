@@ -49,8 +49,6 @@ option_menu.add_command(label="New Game", command=restart)
 # difficulty_menu.add_command(label="Medium", command=medium_level)
 # difficulty_menu.add_command(label="Hard", command=hard_level)
 
-
-
 col_and_row = 9#can't be blow 9
 law_of_bomb_num=round((30/7*col_and_row)-28.51714)
 name_title=tkinter.Label(root, text=f"Number of MINE: {law_of_bomb_num} | Winning Probalility: {round(100-(law_of_bomb_num/int(col_and_row*col_and_row)*100))}%",font=("Arial", 0), anchor="w")
@@ -86,6 +84,8 @@ def surrending_zero_checker(row, col):
     if bomb_counter(row-1, col-1) == 0:
         reveal_coordinate.append([row-1, col-1])
     return reveal_coordinate
+
+#Losing bombs revealing
 
 revealed = []#use set!!!!!!!!!!!! for winning
 def surrending_zero_reveal(row, col):
@@ -234,7 +234,8 @@ def clicked(r, c): #button click
 
     #result
     if checker(r, c):
-        buttons[(r, c)].config(
+        for [r, c] in bomb_coordinate:
+            buttons[(r, c)].config(
             text=(box_text(r, c)),
             bg="#FD3131",
             font=("Arial",18, "bold")
